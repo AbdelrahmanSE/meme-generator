@@ -6,7 +6,7 @@ export function Header() {
       <div className="ui stackable menu inverted segment">
         <div className="ui container">
           <div className="item">
-            <i class="image outline icon" />
+            <i className="image outline icon" />
             Meme Generator
           </div>
           <a

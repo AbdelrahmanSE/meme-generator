@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
-import { Header } from './components/header/Header';
+import React, { Component } from "react";
+import "./App.scss";
+import { Header } from "./components/header/Header";
+import { MemesContainer } from "./components/memes-container/MemesContainer";
 
 class App extends Component {
   render() {
     return (
-      <Header />
+      <main>
+        <Header />
+        <MemesContainer />
+      </main>
     );
   }
 }
