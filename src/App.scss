@@ -1,8 +1,19 @@
-.meme-container {
-  margin: 50px 0;
-}
-
-.app-name{
+.app-name {
   font-size: 1.2rem;
   font-weight: bold !important;
+}
+
+.meme-container {
+  margin: 50px 0;
+
+  .meme-card {
+    cursor: pointer;
+
+    .meme-image {
+      height: 200px;
+      background-size: cover;
+      background-position: top;
+      background-repeat: no-repeat;
+    }
+  }
 }

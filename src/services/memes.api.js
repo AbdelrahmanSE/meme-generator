@@ -1,6 +1,7 @@
 export class MemesAPI {
 
-    getMemes(){
-        fetch('https://api.imgflip.com/get_memes')
+    getMemes() {
+        return fetch('https://api.imgflip.com/get_memes')
+            .then(res => res.json());
     }
 }

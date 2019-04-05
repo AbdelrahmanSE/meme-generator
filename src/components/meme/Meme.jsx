@@ -1,16 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 
-export function Meme() {
-  return (
-    <div className="ui card">
-      <div className="image">
-        <img alt="" src="/images/avatar2/large/kristy.png" />
-      </div>
-      <div className="content">
-        <div className="description">
-          Kristy is an art director living in New York.
+export class Meme extends Component {
+  render() {
+    let style = {
+      backgroundImage: `url(${this.props.meme.url})`
+    };
+    return (
+      <div className="ui centered card meme-card">
+        <div className="meme-image" style={style}>
+        </div>
+        <div className="content">
+          <div className="description">{this.props.meme.name}</div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
