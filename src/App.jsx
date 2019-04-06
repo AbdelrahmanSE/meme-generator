@@ -6,10 +6,10 @@ import { MemesContainer } from "./components/memes-container/MemesContainer";
 class App extends Component {
   render() {
     return (
-      <main>
+      <React.Fragment>
         <Header />
         <MemesContainer />
-      </main>
+      </React.Fragment>
     );
   }
 }
