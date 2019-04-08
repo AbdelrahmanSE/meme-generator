@@ -3,8 +3,8 @@ import { Meme } from "../meme/Meme";
 import { MemesAPI } from "../../services/memes.api";
 
 export class MemesContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.memeAPI = new MemesAPI();
     this.state = {
       memes: []
