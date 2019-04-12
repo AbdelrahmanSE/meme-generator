@@ -1,3 +1,9 @@
+# Memes Generator React App
+
+This is a ReactJS project to consume the [imgflip](https://api.imgflip.com/ "imgflip") API to generate Memes
+
+## [ Live Demo](https://memes-generator.netlify.com/ " Live Demo")
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
