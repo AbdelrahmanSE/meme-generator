@@ -24,7 +24,8 @@ export class MemeGenerator extends Component {
   }
 
   render() {
-    if (!this.props.selectedMeme) return null;
+    if (!this.props.selectedMeme)
+      return <div className="ui modal meme-generator" />;
 
     return (
       <div className="ui modal meme-generator">
