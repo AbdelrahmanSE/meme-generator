@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { Meme } from "../meme/Meme";
 import { MemesAPI } from "../../services/memes.api";
+import { MemeGenerator } from "../meme-generator/MemeGenerator";
+/* global jQuery */
 
 export class MemesContainer extends Component {
   constructor(props) {
     super(props);
     this.memeAPI = new MemesAPI();
     this.state = {
-      memes: []
+      memes: [],
+      selectedMeme: null
     };
   }
 
@@ -22,16 +25,28 @@ export class MemesContainer extends Component {
   createMemeCard() {
     return this.state.memes.map(meme => (
       <div key={meme.id} className="four wide column">
-        <Meme meme={meme} />
+        <Meme meme={meme} onClick={this.selectMeme} />
       </div>
     ));
   }
 
+  selectMeme = (meme) => {
+    this.setState({
+      selectedMeme: meme
+    });
+    jQuery(".ui.modal").modal("show");
+  };
+
   render() {
     return (
-      <div className="ui container meme-container">
-        <div className="ui stackable grid centered">{this.createMemeCard()}</div>
-      </div>
+      <React.Fragment>
+        <div className="ui container meme-container">
+          <div className="ui stackable grid centered">
+            {this.createMemeCard()}
+          </div>
+        </div>
+        <MemeGenerator selectedMeme={this.state.selectedMeme} />
+      </React.Fragment>
     );
   }
 }
