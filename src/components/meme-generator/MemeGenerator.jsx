@@ -23,9 +23,22 @@ export class MemeGenerator extends Component {
     };
   }
 
+  generateInputTextBoxes = () => {
+    let placeholders = [];
+    if (this.state.captions.length === 2) {
+      placeholders = ["Upper", "Lower"];
+    } else {
+      placeholders = ["First", "Second", "Third", "Fourth", "Fifth"];
+    }
+    return this.state.captions.map((caption, index) => (
+      <div className="ui fluid input" key={index}>
+        <input type="text" placeholder={placeholders[index]} />
+      </div>
+    ));
+  };
+
   render() {
-    if (!this.props.selectedMeme)
-      return <div className="ui modal meme-generator" />;
+    if (!this.props.selectedMeme) return <div className="ui modal meme-generator" />;
 
     return (
       <div className="ui modal meme-generator">
@@ -37,16 +50,8 @@ export class MemeGenerator extends Component {
           </div>
 
           <div className="description">
-            <div className="ui header">
-              Write the captions for the meme to be generated
-            </div>
-            <div>
-              {this.state.captions.map((caption, index) => (
-                <div className="ui fluid input" key={index}>
-                  <input type="text" />
-                </div>
-              ))}
-            </div>
+            <div className="ui header">Write the captions for the meme to be generated</div>
+            <div>{this.generateInputTextBoxes()}</div>
           </div>
         </div>
         <div className="actions">
