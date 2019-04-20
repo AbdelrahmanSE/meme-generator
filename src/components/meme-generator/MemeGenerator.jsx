@@ -32,7 +32,7 @@ export class MemeGenerator extends Component {
     }
     return this.state.captions.map((caption, index) => (
       <div className="ui fluid input" key={index}>
-        <input type="text" placeholder={placeholders[index]} />
+        <input type="text" placeholder={placeholders[index] + ' text' } />
       </div>
     ));
   };
