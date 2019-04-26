@@ -1,22 +1,43 @@
 import React, { Component } from "react";
 
 export default class SvgContainer extends Component {
-
-  render() {
-    if (!this.props.meme) return null;
-
-    var wrh = this.props.meme.width / this.props.meme.height;
-    var newWidth = 600;
-    var newHeight = newWidth / wrh;
+  renderMemeText = () => {
     const textStyle = {
       fontFamily: "Impact",
       fontSize: "50px",
       textTransform: "uppercase",
       fill: "#FFF",
       stroke: "#000",
-      userSelect: "none"
+      userSelect: "none",
+      zIndex: 100
     };
 
+    return this.props.captions.map((caption, index) => {
+      return (
+        <text
+          key={index}
+          style={textStyle}
+          x={caption.topX}
+          y={caption.topY}
+          dominantBaseline="middle"
+          textAnchor="middle"
+          // onMouseDown={event => this.handleMouseDown(event, "top")}
+          // onMouseUp={event => this.handleMouseUp(event, "top")}
+        >
+          {caption.text}
+        </text>
+      );
+    });
+  };
+
+  render() {
+    if (!this.props.meme) return null;
+
+    console.log(this.props);
+
+    var wrh = this.props.meme.width / this.props.meme.height;
+    var newWidth = 600;
+    var newHeight = newWidth / wrh;
 
     return (
       <svg
@@ -30,30 +51,10 @@ export default class SvgContainer extends Component {
             this.imageRef = el;
           }}
           xlinkHref={this.props.meme.memeDataUrl}
-          width="100%" height="100%"
+          width="100%"
+          height="100%"
         />
-        <text
-          //   style={{ ...textStyle, zIndex: this.state.isTopDragging ? 4 : 1 }}
-          //   x={this.state.topX}
-          //   y={this.state.topY}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          onMouseDown={event => this.handleMouseDown(event, "top")}
-          onMouseUp={event => this.handleMouseUp(event, "top")}
-        >
-          {/* {this.state.toptext} */}
-        </text>
-        <text
-          style={textStyle}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          //   x={this.state.bottomX}
-          //   y={this.state.bottomY}
-          onMouseDown={event => this.handleMouseDown(event, "bottom")}
-          onMouseUp={event => this.handleMouseUp(event, "bottom")}
-        >
-          {/* {this.state.bottomtext} */}
-        </text>
+        {this.renderMemeText()}
       </svg>
     );
   }

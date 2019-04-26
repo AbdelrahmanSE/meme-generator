@@ -5,23 +5,54 @@ export class MemeGenerator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      captions: []
+      captions: [],
+      meme: null
     };
   }
 
   static getDerivedStateFromProps(props, currentState) {
+    console.log(currentState);
     if (!props.selectedMeme) return currentState;
+    if (currentState.meme && props.selectedMeme.id === currentState.meme.id) return currentState;
     let captions = [];
 
+    const textGap = props.selectedMeme.height / props.selectedMeme.box_count;
     for (let count = 0; count < props.selectedMeme.box_count; count++) {
       captions.push({
-        text: ""
+        text: "asndj",
+        topX: "50%",
+        topY: 50 + textGap * count
       });
     }
 
     return {
+      meme: props.selectedMeme,
       captions: [...captions]
     };
+  }
+
+  changeCaption(event, index) {
+    this.setState({
+      captions: [
+        ...this.state.captions.slice(0, index),
+        {
+          ...this.state.captions.slice(index, index + 1)[0],
+          text: event.currentTarget.value
+        },
+        ...this.state.captions.slice(index + 1)
+      ]
+    });
+
+    console.log('dddddd', index, {
+      captions: [
+        ...this.state.captions.slice(0, index),
+        {
+          ...this.state.captions.slice(index, index + 1)[0],
+          text: event.currentTarget.value
+        },
+        ...this.state.captions.slice(index + 1)
+      ]
+    }, this.state.captions.slice(index, 1)[0])
   }
 
   generateInputTextBoxes = () => {
@@ -33,21 +64,25 @@ export class MemeGenerator extends Component {
     }
     return this.state.captions.map((caption, index) => (
       <div className="ui fluid input" key={index}>
-        <input type="text" placeholder={placeholders[index] + " text"} />
+        <input
+          type="text"
+          placeholder={placeholders[index] + " text"}
+          onChange={event => this.changeCaption(event, index)}
+          value={caption.text}
+        />
       </div>
     ));
   };
 
   render() {
     if (!this.props.selectedMeme) return <div className="ui modal meme-generator" />;
-
     return (
       <div className="ui modal meme-generator">
         <i className="close icon" />
         <div className="header">Generate Meme</div>
         <div className="image scrolling content">
           <div className="ui big image">
-            <SvgContainer meme={this.props.selectedMeme} />
+            <SvgContainer meme={this.props.selectedMeme} captions={this.state.captions} />
           </div>
 
           <div className="description">
