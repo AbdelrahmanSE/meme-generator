@@ -11,15 +11,17 @@ export class MemeGenerator extends Component {
   }
 
   static getDerivedStateFromProps(props, currentState) {
-    console.log(currentState);
+    // If no image defined return default states which will render null
     if (!props.selectedMeme) return currentState;
+
+    // Check if meme has changed to change the state rendering
     if (currentState.meme && props.selectedMeme.id === currentState.meme.id) return currentState;
     let captions = [];
 
     const textGap = props.selectedMeme.height / props.selectedMeme.box_count;
     for (let count = 0; count < props.selectedMeme.box_count; count++) {
       captions.push({
-        text: "asndj",
+        text: "",
         topX: "50%",
         topY: 50 + textGap * count
       });
@@ -42,17 +44,6 @@ export class MemeGenerator extends Component {
         ...this.state.captions.slice(index + 1)
       ]
     });
-
-    console.log('dddddd', index, {
-      captions: [
-        ...this.state.captions.slice(0, index),
-        {
-          ...this.state.captions.slice(index, index + 1)[0],
-          text: event.currentTarget.value
-        },
-        ...this.state.captions.slice(index + 1)
-      ]
-    }, this.state.captions.slice(index, 1)[0])
   }
 
   generateInputTextBoxes = () => {
