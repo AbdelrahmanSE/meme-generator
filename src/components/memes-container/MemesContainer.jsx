@@ -30,10 +30,28 @@ export class MemesContainer extends Component {
     ));
   }
 
-  selectMeme = (meme) => {
+  selectMeme = meme => {
+    // Clear selected image
     this.setState({
-      selectedMeme: meme
+      selectedMeme: null
     });
+
+    // Fetch image from API
+    fetch(meme.url)
+      .then(response => response.blob())
+      .then(blob => {
+        var reader = new FileReader();
+        reader.onload = res => {
+          this.setState({
+            selectedMeme: {
+              ...meme,
+              memeDataUrl: res.srcElement.result
+            }
+          });
+        };
+        reader.readAsDataURL(blob);
+      });
+
     jQuery(".ui.modal").modal("show");
   };
 
@@ -41,9 +59,7 @@ export class MemesContainer extends Component {
     return (
       <React.Fragment>
         <div className="ui container meme-container">
-          <div className="ui stackable grid centered">
-            {this.createMemeCard()}
-          </div>
+          <div className="ui stackable grid centered">{this.createMemeCard()}</div>
         </div>
         <MemeGenerator selectedMeme={this.state.selectedMeme} />
       </React.Fragment>

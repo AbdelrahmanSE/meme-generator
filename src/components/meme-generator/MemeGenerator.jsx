@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SvgContainer from "../svg-container/SvgContainer";
 
 export class MemeGenerator extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export class MemeGenerator extends Component {
     }
     return this.state.captions.map((caption, index) => (
       <div className="ui fluid input" key={index}>
-        <input type="text" placeholder={placeholders[index] + ' text' } />
+        <input type="text" placeholder={placeholders[index] + " text"} />
       </div>
     ));
   };
@@ -44,14 +45,16 @@ export class MemeGenerator extends Component {
       <div className="ui modal meme-generator">
         <i className="close icon" />
         <div className="header">Generate Meme</div>
-        <div className="image content">
+        <div className="image scrolling content">
           <div className="ui big image">
-            <img src={this.props.selectedMeme.url} alt="" />
+            <SvgContainer meme={this.props.selectedMeme} />
           </div>
 
           <div className="description">
-            <div className="ui header">Write the captions for the meme to be generated</div>
-            <div>{this.generateInputTextBoxes()}</div>
+            <div className="fixed-scroll">
+              <div className="ui header">Write the captions for the meme to be generated</div>
+              <div>{this.generateInputTextBoxes()}</div>
+            </div>
           </div>
         </div>
         <div className="actions">
